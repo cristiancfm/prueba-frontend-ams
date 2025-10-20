@@ -1,5 +1,5 @@
-function ProductDetail(id) {
-    return <div>Product Detail for product ID: {id}</div>;
+function ProductDetail() {
+    return <div>Product Detail for product ID</div>;
 }
 
 export default ProductDetail;

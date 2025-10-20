@@ -1,4 +1,3 @@
-import './App.css'
 import MainLayout from "./layout/MainLayout.jsx";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ProductList from "./pages/ProductList.jsx";
