@@ -5,7 +5,7 @@ import * as productService from '../services/productService.js';
 import '@testing-library/jest-dom';
 import {MemoryRouter} from "react-router-dom";
 
-// Mock ProductCard to simplify tests
+// Mock ProductCard component
 vi.mock('../components/ProductCard.jsx', () => ({
     default: ({ product }) => <div data-testid="product-card">{product.model}</div>,
 }));
