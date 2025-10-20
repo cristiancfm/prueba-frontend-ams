@@ -16,7 +16,7 @@ function ProductDetail() {
 
     useEffect(() => {
         getProduct(id);
-    }, []);
+    }, [id]);
 
     const getProduct = async (id) => {
         setLoading(true);
