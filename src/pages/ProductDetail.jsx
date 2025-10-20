@@ -1,13 +1,16 @@
-import { Button, Grid, Typography, Container } from "@mui/material";
+import { Button, Grid, Typography, Container, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import * as productService from "../services/productService.js";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function ProductDetail() {
     const {id} = useParams();
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState(null);
+    const [productColor, setProductColor] = useState("");
+    const [productStorage, setProductStorage] = useState("");
 
     useEffect(() => {
         getProduct(id);
@@ -85,11 +88,9 @@ function ProductDetail() {
                                     {product.battery && (
                                         <>
                                             <Typography variant="body1"><b>Battery</b></Typography>
-                                            <Typography variant="body1">{product.battery}</Typography>
+                                            <Typography variant="body1" sx={{ mb: 1 }}>{product.battery}</Typography>
                                         </>
                                     )}
-
-                                    <hr/>
 
                                     {product.primaryCamera && (
                                         <>
@@ -102,18 +103,16 @@ function ProductDetail() {
                                         </>
                                     )}
 
-                                    {product.secondaryCamera && (
+                                    {product.secondaryCmera && (
                                         <>
                                             <Typography variant="body1"><b>Secondary Camera</b></Typography>
                                             <Typography variant="body1" sx={{ mb: 1 }}>
-                                                {Array.isArray(product.secondaryCamera)
-                                                    ? product.secondaryCamera.join(" ")
-                                                    : product.secondaryCamera}
+                                                {Array.isArray(product.secondaryCmera)
+                                                    ? product.secondaryCmera.join(" ")
+                                                    : product.secondaryCmera}
                                             </Typography>
                                         </>
                                     )}
-
-                                    <hr/>
 
                                     {product.dimentions && (
                                         <Typography variant="body1">Dimensions: {product.dimentions}</Typography>
@@ -122,6 +121,53 @@ function ProductDetail() {
                                     {product.weight && (
                                         <Typography variant="body1">Weight: {product.weight} g</Typography>
                                     )}
+
+                                    <hr/>
+
+                                    <Typography variant="h6" sx={{ my: 2}}>Buying Options</Typography>
+
+                                    <FormControl sx={{ minWidth: 200, mr: 2 }}>
+                                        <InputLabel id="color-label">Color</InputLabel>
+                                        <Select
+                                            labelId="color-label"
+                                            variant="outlined"
+                                            value={productColor}
+                                            label="Color"
+                                            onChange={(e) => setProductColor(e.target.value)}
+                                        >
+                                            {product.options?.colors?.map((color) => (
+                                                <MenuItem key={color.code} value={color.code}>
+                                                    {color.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+
+                                    <FormControl sx={{ minWidth: 200 }}>
+                                        <InputLabel id="storage-label">Storage</InputLabel>
+                                        <Select
+                                            labelId="storage-label"
+                                            variant="outlined"
+                                            value={productStorage}
+                                            label="Storage"
+                                            onChange={(e) => setProductStorage(e.target.value)}
+                                        >
+                                            {product.options?.storages?.map((storage) => (
+                                                <MenuItem key={storage.code} value={storage.code}>
+                                                    {storage.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+
+                                    <Button
+                                        variant="contained"
+                                        startIcon={<ShoppingCartIcon/>}
+                                        sx={{mt: 2}}
+                                        disabled={!productColor || !productStorage}
+                                    >
+                                        Add to Cart
+                                    </Button>
                                 </Grid>
                             </>
                         }
