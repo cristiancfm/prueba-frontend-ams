@@ -14,5 +14,5 @@ Node.js 22
 - `npm start` - Iniciar la aplicación en modo desarrollo
 - `npm build` - Construir la aplicación para producción
 - `npm preview` - Previsualizar la aplicación construida
-- `npm test` - Ejecutar pruebas unitarias
+- `npm test` - Ejecutar pruebas
 - `npm lint` - Analizar el código con ESLint
