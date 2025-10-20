@@ -23,10 +23,11 @@ export const getProduct = async (id) => {
     return response.data;
 }
 
-export const addProductToCart = (id, colorCode, storageCode) => {
-    return axios.post(`${API_URL}/cart`, {
+export const addProductToCart = async (id, colorCode, storageCode) => {
+    const response = await axios.post(`${API_URL}/cart`, {
         id: id,
         colorCode: colorCode,
         storageCode: storageCode
     });
+    return response.data;
 }

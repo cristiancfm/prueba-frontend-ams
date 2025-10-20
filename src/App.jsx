@@ -3,6 +3,7 @@ import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import ProductList from "./pages/ProductList.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
+import {CartProvider} from "./context/CartContext.jsx";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <CartProvider>
+            <RouterProvider router={router} />;
+        </CartProvider>
+    );
 }
 
 export default App;

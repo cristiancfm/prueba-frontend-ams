@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import * as productService from "../services/productService.js";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import {useCart} from "../context/CartContext.jsx";
 
 function ProductDetail() {
     const {id} = useParams();
@@ -11,6 +12,7 @@ function ProductDetail() {
     const [product, setProduct] = useState(null);
     const [productColor, setProductColor] = useState("");
     const [productStorage, setProductStorage] = useState("");
+    const { updateCartItems } = useCart();
 
     useEffect(() => {
         getProduct(id);
@@ -25,6 +27,23 @@ function ProductDetail() {
             console.error(error);
         } finally {
             setLoading(false);
+        }
+    }
+
+    const addProductToCart = async () => {
+        try {
+            if(!productColor || !productStorage) {
+                alert("Please select color and storage options");
+                return;
+            }
+
+            const response = await productService.addProductToCart(
+                product.id, productColor, productStorage);
+            if(response?.count) {
+                updateCartItems(response.count);
+            }
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -165,6 +184,7 @@ function ProductDetail() {
                                         startIcon={<ShoppingCartIcon/>}
                                         sx={{mt: 2}}
                                         disabled={!productColor || !productStorage}
+                                        onClick={addProductToCart}
                                     >
                                         Add to Cart
                                     </Button>
