@@ -179,15 +179,17 @@ function ProductDetail() {
                                         </Select>
                                     </FormControl>
 
-                                    <Button
-                                        variant="contained"
-                                        startIcon={<ShoppingCartIcon/>}
-                                        sx={{mt: 2}}
-                                        disabled={!productColor || !productStorage}
-                                        onClick={addProductToCart}
-                                    >
-                                        Add to Cart
-                                    </Button>
+                                    <Grid>
+                                        <Button
+                                            variant="contained"
+                                            startIcon={<ShoppingCartIcon/>}
+                                            sx={{mt: 2}}
+                                            disabled={!productColor || !productStorage}
+                                            onClick={addProductToCart}
+                                        >
+                                            Add to Cart
+                                        </Button>
+                                    </Grid>
                                 </Grid>
                             </>
                         }
