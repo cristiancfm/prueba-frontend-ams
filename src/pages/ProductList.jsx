@@ -21,11 +21,11 @@ function ProductList() {
             if (!search) {
                 setFilteredProducts(products);
             } else {
-                const term = search.toLowerCase();
-                const filtered = products.filter(p =>
-                    p.brand.toLowerCase().includes(term) ||
-                    p.model.toLowerCase().includes(term)
-                );
+                const termWords = search.trim().toLowerCase().split(" ");
+                const filtered = products.filter(product => {
+                    const text = (product.brand + " " + product.model).toLowerCase();
+                    return termWords.every(word => text.includes(word));
+                });
                 setFilteredProducts(filtered);
             }
         }, 300);
@@ -54,7 +54,7 @@ function ProductList() {
                 :
                 <>
                     <Grid container justifyContent="end">
-                        <Grid item>
+                        <Grid>
                             <TextField
                                 label="Search"
                                 value={search}
